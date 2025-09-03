@@ -34,6 +34,7 @@ for x = 1:n;
         for z = 1:n;
             if lattice(x,y,z) == 1
                scatter3(x,y,z,100,'red','filled','^')
+               hold on
             else
                scatter3(x,y,z,100,'blue','filled','v')
                hold on
