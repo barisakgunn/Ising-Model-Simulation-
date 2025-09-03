@@ -1,3 +1,4 @@
+%MATLAB R2024b
 clc, clear all
 
 n = 10;       % size of the lattice
@@ -32,7 +33,7 @@ for T_loop = 1:sample_N;
           lattice(x,y,z) = -s;    % adds disorder to the system
        end  
     end
-    Ferromagneticism(T_loop) = abs(sum(lattice,"all"));
+    Ferromagneticism(T_loop) = abs(sum(lattice,"all")); % defined as such
 end
 T_plot = 1:sample_N;
 plot(T_plot,Ferromagneticism,'.')
