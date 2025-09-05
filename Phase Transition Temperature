@@ -1,0 +1,48 @@
+%MATLAB R2024b
+clc, clear all
+
+n = 10;       % size of the lattice
+kB = 0.00265;      % boltzmann constant
+dT = 10^(-2);     % change in T value between iterations
+
+lattice = randi([0,1], n, n, n) * 2 - 1;  % random spin = 1/2 lattice 
+
+T_low = 0;
+T_high = 100;   % or some reasonable upper bound
+T(1) = 999;
+T(2) = 100*rand; % Temp input
+i = 2;
+while abs(T(i) - T(i - 1)) > dT
+    J = 1/T(i); % Ferromagnetic J value
+    for k = 1:1000000
+        x = randi(n); y = randi(n); z = randi(n); % random point selected
+        s = lattice(x,y,z); % spin of the random point
+
+      % Points nearby (next to) the selected point
+        xa = mod(x,n) + 1; xb = mod(x-2,n) + 1; 
+        ya = mod(y,n) + 1; yb = mod(y-2,n) + 1;
+        za = mod(z,n) + 1; zb = mod(z-2,n) + 1;
+        nearby_points = lattice(xa,y,z) + lattice(xb,y,z) + lattice(x,ya,z) + lattice(x,yb,z) + lattice(x,y,za) + lattice(x,y,zb);
+
+        dE = J * s * nearby_points; % Energy difference caused by the spin flip
+    
+        if dE <= 0
+         lattice(x,y,z) = -s;    % adds order to the system (dE effect)
+        elseif rand < exp(-dE/(T(i)*kB))
+         lattice(x,y,z) = -s;    % adds disorder to the system (T effect)
+        end  
+    end
+
+    Ferromagneticism = abs(sum(lattice,"all")); % total number of spins looking a certain way
+   if Ferromagneticism > (n^3)*0.9
+        T_low = T(i);        
+    else
+        T_high = T(i);         
+    end
+    T(i+1) = (T_low + T_high)/2;
+    i = i + 1;
+
+end
+
+disp("Cutoff Temperature = ")
+disp(T(end)) % around 25
