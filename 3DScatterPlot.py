@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import streamlit as st
 
 # Parameters
 n = 5                 # lattice size
