@@ -1,8 +1,8 @@
-Spin Glass Simulation (Ising Model in MATLAB)
+Spin Glass Simulation (Ising Model in Python)
 
 📖 Overview
 
-This project implements a spin glass simulation using the Ising model in MATLAB.
+This project implements a spin glass simulation using the Ising model in Python.
 The Ising model is a fundamental tool in statistical mechanics used to study phase transitions, magnetism, and disordered systems such as spin glasses.
 
 The project uses Monte Carlo methods to simulate spin interactions and analyze the system’s behavior under varying temperature and coupling conditions.
