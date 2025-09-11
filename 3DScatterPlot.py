@@ -9,7 +9,7 @@ kB = 0.007             # Boltzmann constant
 lattice = np.random.choice([-1, 1], size=(n, n, n))
 
 # Temperature input
-T = float(input("Choose an arbitrary positive Temperature value: "))
+T = st.number_input("Choose an arbitrary positive Temperature value: ")
 J = 1.0 / T
 
 # Monte Carlo simulation
@@ -52,4 +52,4 @@ ax.set_title("3D Spin Glass Graph")
 ax.set_xlabel("X")
 ax.set_ylabel("Y")
 ax.set_zlabel("Z")
-plt.show()
+st.pyplot(fig)
