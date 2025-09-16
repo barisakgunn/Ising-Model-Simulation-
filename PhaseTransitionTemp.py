@@ -1,10 +1,11 @@
 import numpy as np
 from numba import njit
+import streamlit as st
 
 # Parameters
 n = 10                 # lattice size
-kB = 0.00225          # Boltzmann constant
-dT = 1e-2            # convergence threshold
+kB = 0.00225           # Boltzmann constant
+dT = 1e-2              # convergence threshold
 
 # Initialize random spin lattice (-1 or +1)
 lattice = np.random.choice([-1, 1], size=(n, n, n))
@@ -41,7 +42,6 @@ def monte_carlo_step(lattice, J, T, kB, steps):
     return lattice
 
 # --- Main simulation ---
-
 i = 1
 while abs(T[i] - T[i - 1]) > dT:
     J = 1.0 / T[i]   # Ferromagnetic coupling
@@ -59,4 +59,6 @@ while abs(T[i] - T[i - 1]) > dT:
     T.append((T_low + T_high) / 2)
     i += 1
 
-print("\nCutoff Temperature =", T[-1])
+# --- Show results in Streamlit ---
+st.title("Ising Model Cutoff Temperature Finder")
+st.write(f"✅ Cutoff Temperature = **{T[-1]:.4f}**")
