@@ -9,8 +9,8 @@ kB = 0.007             # Boltzmann constant
 # Initialize random spin lattice (-1 or +1)
 lattice = np.random.choice([-1, 1], size=(n, n, n))
 
-# Temperature input
-T = st.number_input("Choose an arbitrary positive Temperature value: ")
+# Temperature input (ensure T > 0)
+T = st.number_input("Choose an arbitrary positive Temperature value:", min_value=1e-6, value=1.0)
 J = 1.0 / T
 
 # Monte Carlo simulation
