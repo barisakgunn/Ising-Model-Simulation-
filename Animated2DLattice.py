@@ -13,9 +13,11 @@ st.title("2D Ising Model Animation")
 T = st.slider("Choose Temperature", min_value=0.1, max_value=5.0, value=2.0, step=0.1)
 J = 1.0 / T
 
-# Initialize lattice
+# Initialize lattice in session state
 if "lattice" not in st.session_state:
     st.session_state.lattice = np.random.choice([-1, 1], size=(n, n))
+if "running" not in st.session_state:
+    st.session_state.running = False
 
 # Monte Carlo step
 def monte_carlo_step(lattice, T, J, kB, steps=1):
@@ -35,17 +37,20 @@ def monte_carlo_step(lattice, T, J, kB, steps=1):
     return lattice
 
 # Control buttons
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 if col1.button("▶ Start Animation"):
     st.session_state.running = True
 if col2.button("⏹ Stop Animation"):
+    st.session_state.running = False
+if col3.button("🔄 Reset Lattice"):
+    st.session_state.lattice = np.random.choice([-1, 1], size=(n, n))
     st.session_state.running = False
 
 # Placeholder for plot
 plot_area = st.empty()
 
 # Animation loop
-if st.session_state.get("running", False):
+if st.session_state.running:
     for frame in range(200):
         st.session_state.lattice = monte_carlo_step(
             st.session_state.lattice, T, J, kB, steps=steps_per_frame
