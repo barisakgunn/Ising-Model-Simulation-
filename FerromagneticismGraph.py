@@ -4,10 +4,10 @@ import streamlit as st
 
 # --- Parameters ---
 n = 10                 # lattice size
-kB = 0.1              # Boltzmann constant
-minT = 0.1             # avoid T = 0
-maxT = 10
-stepT = 0.2
+kB = 0.02              # Boltzmann constant
+minT = 0.5            # avoid T = 0
+maxT = 30
+stepT = 0.5
 sample_N = int((maxT - minT) / stepT) + 1
 
 # Streamlit UI
