@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # --- Parameters ---
-n = 10                 # lattice size
-kB = 0.02              # Boltzmann constant
+n = 5                 # lattice size
+kB = 0.005              # Boltzmann constant
 minT = 0.5            # avoid T = 0
 maxT = 30
-stepT = 0.5
+stepT = 1.0
 sample_N = int((maxT - minT) / stepT) + 1
 
 # Streamlit UI
