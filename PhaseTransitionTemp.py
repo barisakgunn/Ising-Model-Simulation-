@@ -10,8 +10,8 @@ dT = 1e-2              # convergence threshold
 # Initialize random spin lattice (-1 or +1)
 lattice = np.random.choice([-1, 1], size=(n, n, n))
 
-# Temperature bounds
-T_low = 0
+# Temperature bounds (avoid zero)
+T_low = 1e-3
 T_high = 100
 T = [999, 100 * np.random.rand()]  # initial temps
 
@@ -46,12 +46,16 @@ i = 1
 while abs(T[i] - T[i - 1]) > dT:
     J = 1.0 / T[i]   # Ferromagnetic coupling
 
-    # Run Monte Carlo sweeps (reduced for speed)
+    # --- Warm-up sweeps (thermalization) ---
+    lattice = monte_carlo_step(lattice, J, T[i], kB, steps=20_000)
+
+    # --- Measurement sweeps ---
     lattice = monte_carlo_step(lattice, J, T[i], kB, steps=100_000)
 
-    Ferromagneticism = abs(np.sum(lattice))
+    # Normalized magnetization per spin
+    Ferromagneticism = abs(np.sum(lattice)) / (n**3)
 
-    if Ferromagneticism > (n ** 3) * 0.95:
+    if Ferromagneticism > 0.9:
         T_low = T[i]
     else:
         T_high = T[i]
@@ -61,4 +65,4 @@ while abs(T[i] - T[i - 1]) > dT:
 
 # --- Show results in Streamlit ---
 st.title("Ising Model Cutoff Temperature Finder")
-st.write(f"✅ Cutoff Temperature = **{T[-1]:.4f}**")
+st.write(f"✅ Estimated Cutoff Temperature = **{T[-1]:.4f}**")
