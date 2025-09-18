@@ -4,7 +4,7 @@ import streamlit as st
 
 # --- Parameters ---
 n = 5                 # lattice size
-kB = 0.24             # Boltzmann constant (chosen so Tc ~ 25)
+kB = 0.2             # Boltzmann constant (chosen so Tc ~ 25)
 minT = 1.0            # avoid T = 0
 maxT = 30
 stepT = 1.0
