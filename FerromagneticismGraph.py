@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # --- Parameters ---
-n = 5                 # lattice size
-kB = 0.15             # Boltzmann constant (chosen so Tc ~ 25)
-minT = 1.0            # avoid T = 0
+n = 10                 # lattice size
+kB = 0.12            # Boltzmann constant (chosen so Tc ~ 25)
+minT = 1.0          # avoid T = 0
 maxT = 30
 stepT = 1.0
 sample_N = int((maxT - minT) / stepT) + 1
-mc_steps = 100000     # Monte Carlo steps per T
+mc_steps = 50000     # Monte Carlo steps per T
 equil_steps = 10_000  # extra sweeps to equilibrate
 
 # Streamlit UI
